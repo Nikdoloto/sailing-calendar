@@ -305,11 +305,14 @@ button {
   height: 48px;
   flex: 0 0 auto;
   place-items: center;
+  border: 0;
   border-radius: var(--radius-card);
   background: var(--color-accent);
   color: #ffffff;
+  cursor: pointer;
   font-size: 26px;
   font-weight: 700;
+  line-height: 1;
 }
 
 .pwa-banner.is-hidden {

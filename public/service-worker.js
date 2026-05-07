@@ -1,14 +1,15 @@
 const CACHE_NAME = 'sail-team-calendar-v1';
+const SCOPE_URL = self.registration.scope;
 const APP_SHELL = [
-  '/',
-  '/index.html',
-  '/styles.css',
-  '/app.js',
-  '/manifest.webmanifest',
-  '/icons/sail-logo.svg',
-  '/icons/icon-192.svg',
-  '/icons/icon-512.svg'
-];
+  '',
+  'index.html',
+  'styles.css',
+  'app.js',
+  'manifest.webmanifest',
+  'icons/sail-logo.svg',
+  'icons/icon-192.svg',
+  'icons/icon-512.svg'
+].map((assetPath) => new URL(assetPath, SCOPE_URL).toString());
 
 self.addEventListener('install', (event) => {
   event.waitUntil(
@@ -29,7 +30,7 @@ self.addEventListener('activate', (event) => {
 self.addEventListener('fetch', (event) => {
   const url = new URL(event.request.url);
 
-  if (url.pathname.startsWith('/api/')) {
+  if (url.pathname.includes('/api/')) {
     event.respondWith(fetch(event.request));
     return;
   }
@@ -41,6 +42,10 @@ self.addEventListener('fetch', (event) => {
         caches.open(CACHE_NAME).then((cache) => cache.put(event.request, clone));
         return response;
       })
-      .catch(() => caches.match(event.request).then((cached) => cached ?? caches.match('/')))
+      .catch(() =>
+        caches
+          .match(event.request)
+          .then((cached) => cached ?? caches.match(new URL('', SCOPE_URL).toString()))
+      )
   );
 });

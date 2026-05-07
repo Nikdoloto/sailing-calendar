@@ -153,7 +153,7 @@ function renderLogin() {
     <main class="login-shell">
       <section class="login-panel">
         <div class="brand">
-          <img class="brand-mark" src="/icons/sail-logo.svg" alt="" />
+          <img class="brand-mark" src="icons/sail-logo.svg" alt="" />
           <div>
             <h1 class="brand-title">Sail Team Calendar</h1>
             <p class="brand-caption">Календарь тренировок команды</p>
@@ -469,14 +469,12 @@ function renderPwaBanner() {
 
   return `
     <section class="pwa-banner">
-      <div class="pwa-icon">+</div>
+      <button class="pwa-icon" type="button" id="install-icon" aria-label="Как добавить на главный экран">+</button>
       <div class="pwa-copy">
         <strong>Добавить на главный экран</strong>
         <p class="caption">Установите приложение как ярлык на телефон.</p>
       </div>
-      <button class="secondary-button" type="button" id="install-button" ${
-        state.installPrompt ? '' : 'disabled'
-      }>Добавить</button>
+      <button class="secondary-button" type="button" id="install-button">Добавить</button>
     </section>
   `;
 }
@@ -486,7 +484,7 @@ function renderApp() {
     <main class="app-shell">
       <header class="app-header">
         <div class="brand">
-          <img class="brand-mark" src="/icons/sail-logo.svg" alt="" />
+          <img class="brand-mark" src="icons/sail-logo.svg" alt="" />
           <div>
             <h1 class="brand-title">Sail Team Calendar</h1>
             <p class="brand-caption">Календарь тренировок команды</p>
@@ -638,8 +636,11 @@ function bindAppEvents() {
     renderLogin();
   });
 
-  document.querySelector('#install-button')?.addEventListener('click', async () => {
+  const handleInstallClick = async () => {
     if (!state.installPrompt) {
+      setMessage(
+        'На iPhone установка работает через Safari: Поделиться -> Добавить на главный экран. После обновления PWA откроется как /sailing-calendar, а не как корень сайта.'
+      );
       return;
     }
 
@@ -647,7 +648,10 @@ function bindAppEvents() {
     await state.installPrompt.userChoice;
     state.installPrompt = null;
     renderApp();
-  });
+  };
+
+  document.querySelector('#install-button')?.addEventListener('click', handleInstallClick);
+  document.querySelector('#install-icon')?.addEventListener('click', handleInstallClick);
 
   document.querySelectorAll('[data-scroll-target]').forEach((button) => {
     button.addEventListener('click', () => {
@@ -660,7 +664,7 @@ function bindAppEvents() {
 
 async function registerServiceWorker() {
   if ('serviceWorker' in navigator) {
-    await navigator.serviceWorker.register('/service-worker.js').catch(() => {});
+    await navigator.serviceWorker.register('service-worker.js').catch(() => {});
   }
 }
 

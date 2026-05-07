@@ -271,6 +271,10 @@ test('PWA assets are served as static files', async () => {
     const manifest = await fetch(`${context.baseUrl}/manifest.webmanifest`);
     assert.equal(manifest.status, 200);
     assert.match(manifest.headers.get('content-type'), /manifest/);
+    const manifestJson = await manifest.json();
+    assert.equal(manifestJson.start_url, './');
+    assert.equal(manifestJson.scope, './');
+    assert.equal(manifestJson.icons[0].src, 'icons/icon-192.svg');
 
     const serviceWorker = await fetch(`${context.baseUrl}/service-worker.js`);
     assert.equal(serviceWorker.status, 200);
