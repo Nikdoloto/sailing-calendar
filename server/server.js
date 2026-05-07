@@ -378,7 +378,7 @@ function start() {
   const server = http.createServer(app.handler);
 
   server.listen(app.config.port, () => {
-    console.log(`Sail Team Calendar is running on http://localhost:${app.config.port}`);
+    console.log(`Sailing Team Calendar is running on http://localhost:${app.config.port}`);
   });
 
   const close = () => {

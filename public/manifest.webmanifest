@@ -1,6 +1,6 @@
 {
-  "name": "Sail Team Calendar",
-  "short_name": "Sail Calendar",
+  "name": "Sailing Team Calendar",
+  "short_name": "Sailing Calendar",
   "description": "Календарь доступности и тренировок парусной команды.",
   "start_url": "./",
   "scope": "./",

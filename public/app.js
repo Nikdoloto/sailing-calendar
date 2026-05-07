@@ -155,7 +155,7 @@ function renderLogin() {
         <div class="brand">
           <img class="brand-mark" src="icons/sail-logo.svg" alt="" />
           <div>
-            <h1 class="brand-title">Sail Team Calendar</h1>
+            <h1 class="brand-title">Sailing Team Calendar</h1>
             <p class="brand-caption">Календарь тренировок команды</p>
           </div>
         </div>
@@ -486,7 +486,7 @@ function renderApp() {
         <div class="brand">
           <img class="brand-mark" src="icons/sail-logo.svg" alt="" />
           <div>
-            <h1 class="brand-title">Sail Team Calendar</h1>
+            <h1 class="brand-title">Sailing Team Calendar</h1>
             <p class="brand-caption">Календарь тренировок команды</p>
           </div>
         </div>
@@ -694,7 +694,7 @@ init().catch((error) => {
   app.innerHTML = `
     <main class="loading-screen">
       <section class="login-panel">
-        <h1 class="brand-title">Sail Team Calendar</h1>
+        <h1 class="brand-title">Sailing Team Calendar</h1>
         <div class="message">${escapeHtml(error.message)}</div>
       </section>
     </main>

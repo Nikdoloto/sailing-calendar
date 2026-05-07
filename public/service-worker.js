@@ -1,4 +1,4 @@
-const CACHE_NAME = 'sail-team-calendar-v1';
+const CACHE_NAME = 'sailing-team-calendar-v1';
 const SCOPE_URL = self.registration.scope;
 const APP_SHELL = [
   '',
