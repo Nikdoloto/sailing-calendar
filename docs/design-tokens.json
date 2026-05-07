@@ -1,0 +1,115 @@
+{
+  "product": {
+    "name": "Sail Team Calendar",
+    "description": "Простой способ увидеть, когда команда свободна, и забронировать тренировку без поиска в Telegram."
+  },
+  "colors": {
+    "primary": {
+      "name": "Глубокий морской синий",
+      "hex": "#0D2B45"
+    },
+    "accent": {
+      "name": "Светлый голубой",
+      "hex": "#4DA8E8"
+    },
+    "success": {
+      "name": "Зелёный",
+      "hex": "#22C55E",
+      "meaning": "Все 4 участника свободны"
+    },
+    "warning": {
+      "name": "Жёлтый",
+      "hex": "#FACC15",
+      "meaning": "Свободны 3 из 4 участников"
+    },
+    "neutral": {
+      "name": "Светло-серый",
+      "hex": "#E6E9EE",
+      "meaning": "Свободны меньше 3 участников"
+    },
+    "danger": {
+      "name": "Мягкий красный",
+      "hex": "#F87171",
+      "meaning": "Ошибка или недоступность"
+    }
+  },
+  "typography": {
+    "h1": {
+      "fontSize": 24,
+      "fontWeight": 700
+    },
+    "h2": {
+      "fontSize": 18,
+      "fontWeight": 600
+    },
+    "body": {
+      "fontSize": 16,
+      "fontWeight": 400
+    },
+    "caption": {
+      "fontSize": 12,
+      "fontWeight": 400
+    }
+  },
+  "spacing": [4, 8, 12, 16, 24],
+  "radii": {
+    "card": 12
+  },
+  "shadow": {
+    "card": "0 4px 16px rgba(13, 43, 69, 0.08)"
+  },
+  "availabilityRules": {
+    "allFour": {
+      "label": "Свободны все 4",
+      "colorToken": "success",
+      "minAvailableUsers": 4
+    },
+    "threeOfFour": {
+      "label": "3 из 4 свободны",
+      "colorToken": "warning",
+      "minAvailableUsers": 3
+    },
+    "lessThanThree": {
+      "label": "Меньше 3",
+      "colorToken": "neutral",
+      "maxAvailableUsers": 2
+    },
+    "unavailable": {
+      "label": "Недоступно",
+      "colorToken": "danger"
+    }
+  },
+  "users": ["Никита", "Даня", "Лиза", "Настя"],
+  "adminUser": "Никита",
+  "daySlots": [
+    {
+      "id": "morning",
+      "label": "Утро",
+      "time": "08:00-12:00"
+    },
+    {
+      "id": "day",
+      "label": "День",
+      "time": "12:00-16:00"
+    },
+    {
+      "id": "evening",
+      "label": "Вечер",
+      "time": "16:00-20:00"
+    },
+    {
+      "id": "full_day",
+      "label": "Весь день",
+      "time": "08:00-20:00",
+      "selects": ["morning", "day", "evening"]
+    }
+  ],
+  "mvpExclusions": [
+    "Регистрация",
+    "Сложные роли",
+    "Google Calendar",
+    "Уведомления",
+    "Сложные права доступа",
+    "Личные расширенные профили"
+  ]
+}
