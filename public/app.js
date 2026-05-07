@@ -683,7 +683,11 @@ function bindAppEvents() {
 
 async function registerServiceWorker() {
   if ('serviceWorker' in navigator) {
-    await navigator.serviceWorker.register('service-worker.js').catch(() => {});
+    const registration = await navigator.serviceWorker
+      .register('service-worker.js')
+      .catch(() => null);
+
+    await registration?.update().catch(() => {});
   }
 }
 

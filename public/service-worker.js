@@ -1,4 +1,4 @@
-const CACHE_NAME = 'sailing-team-calendar-v1';
+const CACHE_NAME = 'sailing-team-calendar-v2';
 const SCOPE_URL = self.registration.scope;
 const APP_SHELL = [
   '',
@@ -15,6 +15,7 @@ self.addEventListener('install', (event) => {
   event.waitUntil(
     caches.open(CACHE_NAME).then((cache) => cache.addAll(APP_SHELL))
   );
+  self.skipWaiting();
 });
 
 self.addEventListener('activate', (event) => {
@@ -24,6 +25,7 @@ self.addEventListener('activate', (event) => {
       .then((keys) =>
         Promise.all(keys.filter((key) => key !== CACHE_NAME).map((key) => caches.delete(key)))
       )
+      .then(() => self.clients.claim())
   );
 });
 
