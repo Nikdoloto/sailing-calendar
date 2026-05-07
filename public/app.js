@@ -463,18 +463,22 @@ function renderDay() {
 }
 
 function renderPwaBanner() {
-  if (isStandalone()) {
-    return '<section class="pwa-banner is-hidden"></section>';
-  }
+  const standalone = isStandalone();
 
   return `
     <section class="pwa-banner">
-      <button class="pwa-icon" type="button" id="install-icon" aria-label="Как добавить на главный экран">+</button>
+      <button class="pwa-icon" type="button" id="${standalone ? 'refresh-icon' : 'install-icon'}" aria-label="${
+        standalone ? 'Обновить календарь' : 'Как добавить на главный экран'
+      }">${standalone ? '↻' : '+'}</button>
       <div class="pwa-copy">
-        <strong>Добавить на главный экран</strong>
-        <p class="caption">Установите приложение как ярлык на телефон.</p>
+        <strong>${standalone ? 'Обновить календарь' : 'Добавить на главный экран'}</strong>
+        <p class="caption">${
+          standalone
+            ? 'Подтянуть свежие отметки команды с сервера.'
+            : 'Установите приложение как ярлык на телефон.'
+        }</p>
       </div>
-      <button class="secondary-button" type="button" id="install-button">Добавить</button>
+      <button class="secondary-button" type="button" id="refresh-button">Обновить</button>
     </section>
   `;
 }
@@ -526,6 +530,12 @@ function setMessage(message) {
 async function refreshAfterChange() {
   await loadCalendar();
   state.message = '';
+  renderApp();
+}
+
+async function refreshDataFromServer() {
+  await loadCalendar();
+  state.message = 'Календарь обновлён';
   renderApp();
 }
 
@@ -650,7 +660,16 @@ function bindAppEvents() {
     renderApp();
   };
 
-  document.querySelector('#install-button')?.addEventListener('click', handleInstallClick);
+  const handleRefreshClick = async () => {
+    try {
+      await refreshDataFromServer();
+    } catch (error) {
+      setMessage(error.message);
+    }
+  };
+
+  document.querySelector('#refresh-button')?.addEventListener('click', handleRefreshClick);
+  document.querySelector('#refresh-icon')?.addEventListener('click', handleRefreshClick);
   document.querySelector('#install-icon')?.addEventListener('click', handleInstallClick);
 
   document.querySelectorAll('[data-scroll-target]').forEach((button) => {
