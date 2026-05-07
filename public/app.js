@@ -180,8 +180,8 @@ function renderLogin() {
           </div>
 
           <div class="password-row">
-            <label class="field-label" for="password">PIN-код или пароль</label>
-            <input class="text-input" id="password" name="password" type="password" inputmode="numeric" autocomplete="current-password" placeholder="Введите PIN-код" required />
+            <label class="field-label" for="password">PIN-код</label>
+            <input class="text-input" id="password" name="password" type="password" inputmode="numeric" pattern="[0-9]{4,12}" maxlength="12" autocomplete="current-password" placeholder="Введите PIN-код" required />
           </div>
 
           <button class="primary-button" type="submit">Войти</button>

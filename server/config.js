@@ -60,6 +60,21 @@ function numberFromEnv(value, fallback) {
   return Number.isFinite(parsed) && parsed > 0 ? parsed : fallback;
 }
 
+function resolveUserPin(user, overrides) {
+  const pin =
+    overrides.passwords?.[user.name] ??
+    process.env[user.envName] ??
+    user.defaultPassword;
+
+  if (!/^\d{4,12}$/.test(String(pin))) {
+    throw new Error(
+      `${user.envName} должен быть цифровым PIN-кодом длиной от 4 до 12 символов`
+    );
+  }
+
+  return pin;
+}
+
 function getConfig(overrides = {}) {
   const sessionDays = numberFromEnv(
     overrides.sessionDays ?? process.env.SESSION_DAYS,
@@ -68,10 +83,7 @@ function getConfig(overrides = {}) {
 
   const users = SEEDED_USERS.map((user) => ({
     ...user,
-    password:
-      overrides.passwords?.[user.name] ??
-      process.env[user.envName] ??
-      user.defaultPassword
+    password: resolveUserPin(user, overrides)
   }));
 
   return {
