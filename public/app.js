@@ -78,8 +78,13 @@ function isStandalone() {
   );
 }
 
+function apiUrl(path) {
+  const normalizedPath = String(path).replace(/^\/+/, '');
+  return new URL(normalizedPath, document.baseURI).toString();
+}
+
 async function api(path, options = {}) {
-  const response = await fetch(path, {
+  const response = await fetch(apiUrl(path), {
     method: options.method ?? 'GET',
     headers: options.body ? { 'Content-Type': 'application/json' } : undefined,
     body: options.body ? JSON.stringify(options.body) : undefined,

@@ -287,3 +287,14 @@ test('PWA assets are served as static files', async () => {
     await context.close();
   }
 });
+
+test('frontend resolves API paths relative to the mounted app folder', async () => {
+  const appScript = await fs.readFile(
+    path.join(__dirname, '..', 'public', 'app.js'),
+    'utf8'
+  );
+
+  assert.match(appScript, /function apiUrl\(path\)/);
+  assert.match(appScript, /new URL\(normalizedPath, document\.baseURI\)/);
+  assert.doesNotMatch(appScript, /fetch\(path,/);
+});
